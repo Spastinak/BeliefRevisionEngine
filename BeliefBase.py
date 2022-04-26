@@ -43,7 +43,7 @@ class BeliefBase:
     New belief set is: A, !B
     """
     def contract(self, formula):
-
+        pass
 
     def revise(self, formula, order):
         pass
