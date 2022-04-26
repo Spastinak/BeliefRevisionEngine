@@ -28,7 +28,9 @@ def handleInput(beliefBase):
         try:
             formula = to_cnf(formula)
             print (formula)
-            ##order = input("Please enter order (real number from 0 to 1): ")
+            
+            order = input("Please enter order (real number from 0 to 1): ")
+            beliefBase.add(formula, float(order))
             ##beliefBase.revise(formula, float(order))
         except SympifyError:
             print("Formula is not valid")
