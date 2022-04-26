@@ -1,11 +1,26 @@
 import math
+from sortedcontainers import SortedKeyList, SortedList
+from sympy import to_cnf
 
 class BeliefBase:
-    def __init__(self) -> None:
-        pass
+    def __init__(self):
+        self.beliefs = SortedKeyList(key=lambda x: x.order)
+        
     
     def add(self, formula, order):
-        pass
+        """
+        Add formula to belief base with given order
+        """
+        formula = to_cnf(formula)
+        belief = Belief(formula, order)
+        self.beliefs.add(belief)
+        
+        
+        
+        
+        
+
+       
     def degree(self, formula):
         pass
     def clear(self):
