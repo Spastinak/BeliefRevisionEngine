@@ -25,10 +25,26 @@ class BeliefBase:
         pass
     def clear(self):
         pass
+    """
+    Expanding a belief set without making any revision. Simply adding new beliefs.
+    If belief set is: A, B --> C
+    And we expand with: D
+    New belief set is: A, B --> C, D
+    """
     def expand(self, formula):
-        pass
+        formula = to_cnf(formula)
+        belief = Belief(formula, 0)
+        self.beliefs.add(belief)
+
+    """
+    Contract is removing a belief. The belief can be rooted in many other beliefs.
+    If belief set is: A, B --> C
+    We contract with: C
+    New belief set is: A, !B
+    """
     def contract(self, formula):
-        pass
+
+
     def revise(self, formula, order):
         pass
     
