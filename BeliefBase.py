@@ -37,14 +37,15 @@ class BeliefBase:
 class Belief:
     def __init__(self, formula, order=None):
         self.formula = formula
-        self.order = order
+        self.entrenchment = 1
+        ## self.order = order
         
-    def __hash__(self):
-        return hash(self.formula)
+    # def __hash__(self):
+    #     return hash(self.formula)
     def __repr__(self):
         return "Belief: " + str(self.formula) + " with order " + str(self.order)
     def __eq__(self, other):
         return self.formula == other.formula and self.order == other.order
     
-def isclose(a, b):
-    return math.isclose(a, b, rel_tol=1e-09)
+# def isclose(a, b):
+#     return math.isclose(a, b, rel_tol=1e-09)
