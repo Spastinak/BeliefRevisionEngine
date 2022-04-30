@@ -3,6 +3,8 @@ import logging
 
 from sympy import to_cnf, SympifyError
 
+from BeliefBase import BeliefBase
+
 ## from belief_base import BeliefBase
 
 
@@ -28,7 +30,9 @@ def handleInput(beliefBase):
         try:
             formula = to_cnf(formula)
             print (formula)
-            ##order = input("Please enter order (real number from 0 to 1): ")
+            
+            order = input("Please enter order (real number from 0 to 1): ")
+            beliefBase.add(formula, order)
             ##beliefBase.revise(formula, float(order))
         except SympifyError:
             print("Formula is not valid")
@@ -49,6 +53,7 @@ def handleInput(beliefBase):
         
     elif command == "p":
         print("Print belief base")
+        # beliefBase.print()
         print(beliefBase)
         
     elif command == "h":
@@ -63,5 +68,9 @@ def handleInput(beliefBase):
     
     handleInput(beliefBase)
 
-printHelp()
-handleInput(beliefBase=None)
+
+if __name__ == "__main__":
+    
+    beliefBase = BeliefBase()
+    printHelp()
+    handleInput(beliefBase)
