@@ -4,6 +4,12 @@ from operator import neg
 
 from sympy import to_cnf, SympifyError
 
+def removeItem(item, seq):
+    """ Return a copy of seq (or string) with all occurrences of item removed.
+    """
+    return [x for x in seq if x != item]
+def removeDuplicates(seq):
+    return list(set(seq))
 
 def removeAll(item, seq):
     """ Return a copy of seq (or string) with all occurrences of item removed.
@@ -46,10 +52,10 @@ def dissociate(op, args):
     result = []
     
     def collect(subargs):
-        for args in subargs:
-            if args.op == op:
-                collect(args.args)
+        for arg in subargs:
+            if isinstance(arg, op):
+                collect(arg.args)
             else:
-                result.append(args) 
+                result.append(arg) 
     collect(args)    
     return result

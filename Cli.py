@@ -32,8 +32,8 @@ def handleInput(beliefBase):
             print (formula)
             
             order = input("Please enter order (real number from 0 to 1): ")
-            beliefBase.add(formula, order)
-            ##beliefBase.revise(formula, float(order))
+            # beliefBase.add(formula, order)
+            beliefBase.revise(formula, float(order))
         except SympifyError:
             print("Formula is not valid")
         except ValueError:
