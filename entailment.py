@@ -14,9 +14,6 @@ def entailment(kb, formula):
     
     pl_resolution(clauses, formula)
     
-         
-    
-    
     
 def pl_resolution(kb, alpha):
     """[figure 7.12] from the book.
