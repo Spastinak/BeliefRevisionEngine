@@ -6,8 +6,8 @@ from sympy import to_cnf
 class BeliefBase:
     def __init__(self):
         # self.beliefs = []
-        # self.beliefs = SortedList(key=lambda x: x.order)
-        self.beliefs = SortedList()
+        self.beliefs = SortedKeyList(key=lambda x: x.order)
+        # self.beliefs = SortedList()
         self.order = {}
         
     
@@ -34,6 +34,7 @@ class BeliefBase:
        
     def degree(self, formula):
         pass
+    
     def empty(self):
         """ Empty belief base """
         self.beliefs.clear()
