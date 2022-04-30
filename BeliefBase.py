@@ -19,14 +19,7 @@ class BeliefBase:
         belief = Belief(formula, order)
         self.beliefs.add(belief)
         
-    # def print(self):
-    #     if len(self.beliefs) == 0:
-    #         print("Belief base is empty")
-    #         return
-    #     else:
-    #         print("Belief base:")
-    #         for belief in self.beliefs:
-    #             print(str(belief) + ": " + str(self.order[str(belief)]))
+
     def __repr__(self):
         if len(self.beliefs) == 0:
             return "Belief base is empty"
@@ -41,8 +34,11 @@ class BeliefBase:
        
     def degree(self, formula):
         pass
-    def clear(self):
-        pass
+    def empty(self):
+        """ Empty belief base """
+        self.beliefs.clear()
+        
+        
     def expand(self, formula):
         pass
     def contract(self, formula):
