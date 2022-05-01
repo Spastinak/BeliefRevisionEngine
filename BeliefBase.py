@@ -8,6 +8,9 @@ from Utils import associate
 
 from entailment import pl_resolution
 
+def checkOrder(order):
+    if not(0 <= order <= 1):
+        raise ValueError
 
 class BeliefBase:
     def __init__(self):
@@ -16,6 +19,7 @@ class BeliefBase:
         # self.beliefs = SortedList()
         self.tempBeliefs = []
 
+    
     def addTempBeliefs(self, belief, order):
         self.tempBeliefs.append((belief, order))
 
@@ -75,20 +79,26 @@ class BeliefBase:
     def empty(self):
         """ Empty belief base """
         self.beliefs.clear()
+        
+    def deleteDuplicates(self, newBelief):
+        for belief in self.beliefs:
+            if belief.formula == newBelief.formula:
+                self.beliefs.remove(belief)
 
     def expand(self, formula, order):
         formula = to_cnf(formula)
+        checkOrder(order)
         newBelief = Belief(formula, order)
-        self.beliefs = Utils.removeDuplicates(newBelief, self.beliefs)
-        # self.beliefs.append(newBelief)
+        self.deleteDuplicates(newBelief)
+        
         self.beliefs.add(newBelief)
 
     def contract(self, formula, order):
         contractionResult = None
         formula = to_cnf(formula)
-        for belief in self.beliefs:
-            if belief.formula == formula:
-                self.beliefs.remove(belief)
+        # for belief in self.beliefs:
+        #     if belief.formula == formula:
+        #         self.beliefs.remove(belief)
         entrail = pl_resolution(self, formula)
         for key, value in entrail[1].items():
             keyholder = key
@@ -109,14 +119,13 @@ class BeliefBase:
 
     def revise(self, formula, order):
         formula = to_cnf(formula)
-
+        checkOrder(order)
         entrail = pl_resolution(self, ~formula)
         if entrail[0]:
             if self.contract(~formula, order):
                 self.expand(formula, order)
             else:
-                # TODO ValueError
-                pass
+                raise ValueError
         else:
             self.expand(formula, order)
 
