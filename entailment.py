@@ -30,10 +30,10 @@ def pl_resolution(kb, alpha):
     alpha = to_cnf(alpha)
     clauses = []
     beliefDict = {}
-    
+
     for belief in kb.beliefs:
         beliefDict[to_cnf(belief.formula)] = to_cnf(conjuncts(belief.formula))
-        clauses += conjuncts(belief)
+        clauses += conjuncts(belief.formula)
     
     clauses += conjuncts(to_cnf(~alpha))
     
@@ -72,7 +72,7 @@ def pl_resolution(kb, alpha):
 def pl_resolve(ci, cj):
     clauses = []
     disjunction_ci = disjuncts(ci)
-    disjunction_cj  = disjuncts(cj)
+    disjunction_cj = disjuncts(cj)
     
     for literal_i  in disjunction_ci:
         for literal_j  in disjunction_cj:
