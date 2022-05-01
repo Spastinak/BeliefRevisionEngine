@@ -12,6 +12,9 @@ def removeAll(item, seq):
         return seq.replace(item, '')
     else:
         return [x for x in seq if x != item]
+
+def removeAllDuplicates(item, seq):
+    return [x for x in seq if x.formula != item.formula]
     
 def unique(seq):
     """Remove duplicate elements from seq. Assumes hashable elements."""

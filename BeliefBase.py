@@ -10,7 +10,7 @@ class BeliefBase:
     def __init__(self):
         # self.beliefs = []
         # self.beliefs = SortedList(key=lambda x: x.order)
-        self.beliefs = SortedList()
+        self.beliefs = []
         self.order = {}
 
     def add(self, formula, order):
@@ -19,7 +19,7 @@ class BeliefBase:
         """
         formula = to_cnf(formula)
         belief = Belief(formula, order)
-        self.beliefs.add(belief)
+        self.beliefs.append(belief)
 
     def __repr__(self):
         if len(self.beliefs) == 0:
@@ -46,7 +46,7 @@ class BeliefBase:
     def expand(self, formula, order):
         formula = to_cnf(formula)
         belief = Belief(formula, order)
-        self.beliefs.add(belief)
+        self.beliefs.append(belief)
 
     """
     Contract is removing a belief. The belief can be rooted in many other beliefs.
@@ -67,6 +67,9 @@ class BeliefBase:
         notFormula = to_cnf(~formula)
         flag = True
 
+        self.beliefs = Utils.removeAllDuplicates(Belief(formula,order), self.beliefs)
+
+
         newBeliefBase = []
         beliefOrder = []
         for i in self.beliefs:
@@ -78,12 +81,11 @@ class BeliefBase:
         for i in beliefOrder:
             if i.order > order:
                 flag = False
-                newBeliefBase.append(beliefOrder)
+                newBeliefBase.extend(beliefOrder)
 
+        self.beliefs = newBeliefBase
         if flag:
             self.expand(formula, order)
-        else:
-            self.beliefs = newBeliefBase
 
 
 class Belief:
