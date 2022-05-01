@@ -24,13 +24,13 @@ class BeliefBase:
         self.tempBeliefs.clear()
         
     
-    def add(self, formula, order):
-        """
-        Add formula to belief base with given order
-        """
-        formula = to_cnf(formula)
-        belief = Belief(formula, order)
-        self.beliefs.add(belief)
+    # def add(self, formula, order):
+    #     """
+    #     Add formula to belief base with given order
+    #     """
+    #     formula = to_cnf(formula)
+    #     belief = Belief(formula, order)
+    #     self.beliefs.add(belief)
         
 
     def __repr__(self):
@@ -64,15 +64,17 @@ class BeliefBase:
         
 
        
-    def degree(self, formula):
-        if pl_resolution([], formula):
+    def degree(self, query):
+
+        if pl_resolution([], query):  # is query a tautology
             return 1
+
         base = []
-        for order, row in self.iterateByOrder():
-            base += [x.formula for x in row]
-            if pl_resolution(base, formula):
+        for order, row in self.sort_beliefs():  # does anything in our belief base entail our query
+            base += [b.query for b in row]
+            if pl_resolution(base, query):
                 return order
-        return 0
+        return 0  # returns 0 if none of the above is true
         
         
         
@@ -84,53 +86,60 @@ class BeliefBase:
         
         
     def expand(self, formula, order):
-        newFormula = to_cnf(formula)
-        if not pl_resolution([], ~newFormula):
-            if pl_resolution([], newFormula):
-                order = 1
-            else: 
-                for belief in self.beliefs:
-                    oldFormula = belief.formula
-                    if belief.order > order:
-                        continue
-                    
-                    degree = self.degree(oldFormula >> newFormula)
-                    if (pl_resolution([], Equivalent(newFormula, oldFormula)) or belief.order <= order < degree):
-                        self.addTempBeliefs(belief, order) 
-                    else: 
-                        self.addTempBeliefs(belief, degree)
-                self.reorderBeliefs()
+            formula = to_cnf(formula)
+            newBelief = Belief(formula, order)
+            for belief in self.beliefs:
+                belief.order += 1
+            # self.beliefs.append(newBelief)
+            self.beliefs.add(newBelief) 
+
+            
         
         
         
         
     def contract(self, formula, order):
-        newFormula = to_cnf(formula)
-        
+        contractionResult = None
+        formula = to_cnf(formula)
         for belief in self.beliefs:
-            oldFormula = belief.formula
-            if belief.order > order:
-                degreeNew = self.degree(newFormula)
-                newOrOld = associate("|", [oldFormula, newFormula])
-                degreeNewOrOld = self.degree(newOrOld)
-                if degreeNew == degreeNewOrOld:
-                    self.addTempBeliefs(belief, order)
-        self.reorderBeliefs()
+            if belief.formula == formula:
+                self.beliefs.remove(belief)
+        entrail = pl_resolution(self,formula)
+        for key, value in entrail[1].items():
+            keyholder = key
+            for clause in value:
+                if formula == clause:
+                    for belief in self.beliefs:
+                        if belief.formula == keyholder:
+                            if belief in self.beliefs and belief.order < order:
+                                self.beliefs.remove(belief)
+                                contractionResult = True
+                            elif belief in self.beliefs and belief.order >= order:
+                                # TODO ValueError
+                                contractionResult = False
+                            else:
+                                # TODO SympifyError
+                                contractionResult = False
+        return contractionResult
+                                
+                            
+        
         
         
         
     def revise(self, formula, order):
         formula = to_cnf(formula)
-        degree = self.degree(formula)
         
-        if not pl_resolution([], ~formula):
-            if pl_resolution([], formula):
-                order = 1
-            elif order <= degree:
-                self.contract(formula, order)
-            else:
-                self.contract(~formula, 0)
+        entrail = pl_resolution(self, ~formula)
+        if entrail[0]:
+            if self.contract(~formula, order):
                 self.expand(formula, order)
+            else:
+                # TODO ValueError
+                pass
+        else:
+            self.expand(formula, order)
+            
     
     
 
@@ -138,6 +147,7 @@ class Belief:
     def __init__(self, formula, order):
         self.formula = formula
         self.order = order
+        self.query_str = str(formula)
         ## self.order = order
         
     # def __hash__(self):
@@ -147,7 +157,7 @@ class Belief:
     def __repr__(self):
         return "Belief: " + str(self.formula) + " with order " + str(self.order)
     def __eq__(self, other):
-        return self.formula == other.formula and self.order == other.order
+        return self.order == other.order and self.formula == other.formula
     
 # def isclose(a, b):
 #     return math.isclose(a, b, rel_tol=1e-09)

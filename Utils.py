@@ -1,23 +1,25 @@
 import math
 import logging
 from operator import neg
-
+from sympy.logic.boolalg import Or, And
 from sympy import to_cnf, SympifyError
 
-def removeItem(item, seq):
-    """ Return a copy of seq (or string) with all occurrences of item removed.
-    """
-    return [x for x in seq if x != item]
+# def removeItem(item, seq):
+#     """ Return a copy of seq (or string) with all occurrences of item removed.
+#     """
+#     return [x for x in seq if x != item]
 def removeDuplicates(seq):
     return list(set(seq))
 
-def removeAll(item, seq):
-    """ Return a copy of seq (or string) with all occurrences of item removed.
-    """
-    if isinstance(seq, str):
-        return seq.replace(item, '')
-    else:
-        return [x for x in seq if x != item]
+# def removeAll(item, seq):
+#     """ Return a copy of seq (or string) with all occurrences of item removed.
+#     """
+#     if isinstance(seq, str):
+#         return seq.replace(item, '')
+#     else:
+#         return [x for x in seq if x != item]
+def removeall(item, seq):
+    return [x for x in seq if x != item]
     
 def unique(seq):
     """Remove duplicate elements from seq. Assumes hashable elements."""
@@ -35,10 +37,10 @@ def associate(op, args):
     
     
 def conjuncts(args):
-    return dissociate("&", [args])
+    return dissociate(And, [args])
 
 def disjuncts(args):
-    return dissociate("|", [args])
+    return dissociate(Or, [args])
     
 def dissociate(op, args):
     """given an associative operator and a list of arguments, return a flattened list

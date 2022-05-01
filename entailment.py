@@ -1,6 +1,7 @@
 from sympy import to_cnf
+from sympy.logic.boolalg import Or, And
 
-from Utils import conjuncts, associate, disjuncts, removeAll, removeDuplicates, removeItem, unique
+from Utils import conjuncts, associate, disjuncts, removeall, unique
 
 
 # def entailment(kb, formula):
@@ -26,29 +27,33 @@ def pl_resolution(kb, alpha):
         kb (knowlageBase): horn clause knowledge base
         alpha: clause
     """
-    clauses = []
-    new = set()
     alpha = to_cnf(alpha)
-    for i in kb:
-        clauses += conjuncts(i)
+    clauses = []
+    beliefDict = {}
+    
+    for belief in kb.beliefs:
+        beliefDict[to_cnf(belief.formula)] = to_cnf(conjuncts(belief.formula))
+        clauses += conjuncts(belief)
     
     clauses += conjuncts(to_cnf(~alpha))
     
+    new = set()
     
     while True:
         n = len(clauses)
-        pairs = [(clauses[i], clauses[j])
-                 for i in range(n) for j in range(i+1, n)]
+        pairs = [(clauses[i], clauses[j]) for i in range(n) for j in range(i+1, n)]
+        
         for ci, cj in pairs:
             resolvents = pl_resolve(ci, cj)
-            if False in resolvents:
-                return True
             new = new.union(set(resolvents))
+            if False in resolvents:
+                return True, beliefDict
+            
         if new.issubset(set(clauses)):
-            return False
-        for i in new:
-            if i not in clauses:
-                clauses.append(i)
+            return False, beliefDict
+        for c in new:
+            if c not in clauses:
+                clauses.append(c)
             
 
 # def pl_resolve(ci, cj):
@@ -66,14 +71,14 @@ def pl_resolution(kb, alpha):
 #     return clauses
 def pl_resolve(ci, cj):
     clauses = []
-    dci = disjuncts(ci)
-    dcj = disjuncts(cj)
+    disjunction_ci = disjuncts(ci)
+    disjunction_cj  = disjuncts(cj)
     
-    for di in dci:
-        for dj in dcj:
-            if di == ~dj or dj == ~di:
-                reso = removeItem(di, dci) + removeItem(dj, dcj)
-                reso = removeDuplicates(reso)
-                newClause = associate('|', reso)
-                clauses.append(newClause)
+    for literal_i  in disjunction_ci:
+        for literal_j  in disjunction_cj:
+            if literal_i == to_cnf(~literal_j) or to_cnf(~literal_i) == literal_j:
+                remaining = removeall(literal_i, disjunction_ci) + removeall(literal_j, disjunction_cj)
+                remaining = unique(remaining)
+                new_clause = associate(Or, remaining)
+                clauses.append(new_clause)
     return clauses
