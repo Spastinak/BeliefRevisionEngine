@@ -157,7 +157,9 @@ class Belief:
     def __repr__(self):
         return "Belief: " + str(self.formula) + " with order " + str(self.order)
     def __eq__(self, other):
-        return self.order == other.order and self.formula == other.formula
+        if isinstance(other, Belief):
+            return self.formula == other.formula and self.order == other.order
+        return True
     
     
     
