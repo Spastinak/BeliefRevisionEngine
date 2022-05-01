@@ -6,8 +6,8 @@ from sympy.logic.boolalg import Or, And
 #     """ Return a copy of seq (or string) with all occurrences of item removed.
 #     """
 #     return [x for x in seq if x != item]
-def removeDuplicates(seq):
-    return list(set(seq))
+def removeDuplicates(item,seq):
+    return [x for x in seq if x.formula != item.formula]
 
 # def removeAll(item, seq):
 #     """ Return a copy of seq (or string) with all occurrences of item removed.

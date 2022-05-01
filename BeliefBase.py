@@ -2,6 +2,8 @@ import math
 from operator import neg
 from sortedcontainers import SortedKeyList, SortedList
 from sympy import to_cnf, Equivalent
+
+import Utils
 from Utils import associate
 
 from entailment import pl_resolution
@@ -77,6 +79,7 @@ class BeliefBase:
     def expand(self, formula, order):
         formula = to_cnf(formula)
         newBelief = Belief(formula, order)
+        self.beliefs = Utils.removeDuplicates(newBelief, self.beliefs)
         # self.beliefs.append(newBelief)
         self.beliefs.add(newBelief)
 
