@@ -12,7 +12,10 @@ from BeliefBase import BeliefBase
 def printHelp():
     print(
         """
-    Belief Revision Agent - Group 45
+    ####################################
+      Belief Revision Agent - Group 45 
+    ####################################
+    
     available commands:
     r: Belief revison
     e: Empty belief base
