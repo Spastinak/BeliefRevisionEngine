@@ -1,8 +1,6 @@
-import math
-import logging
-from operator import neg
+
 from sympy.logic.boolalg import Or, And
-from sympy import to_cnf, SympifyError
+
 
 # def removeItem(item, seq):
 #     """ Return a copy of seq (or string) with all occurrences of item removed.

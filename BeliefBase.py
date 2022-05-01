@@ -144,20 +144,22 @@ class BeliefBase:
     
 
 class Belief:
-    def __init__(self, formula, order):
+    def __init__(self, formula, order=None):
         self.formula = formula
         self.order = order
-        self.query_str = str(formula)
         ## self.order = order
         
     # def __hash__(self):
     #     return hash(self.formula)
     def __lt__(self, other):
         return self.order < other.order
+
     def __repr__(self):
         return "Belief: " + str(self.formula) + " with order " + str(self.order)
     def __eq__(self, other):
         return self.order == other.order and self.formula == other.formula
+    
+    
     
 # def isclose(a, b):
 #     return math.isclose(a, b, rel_tol=1e-09)

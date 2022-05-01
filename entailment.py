@@ -63,7 +63,7 @@ def pl_resolution(kb, alpha):
 #     for di in disjuncts(ci):
 #         for dj in disjuncts(cj):
 #             if di == ~dj or ~di == dj:
-#                 clauses.append(associate('|', unique(removeAll(di, disjuncts(ci)) + removeAll(dj, disjuncts(cj)))))
+#                 clauses.append(associate('|', unique(removeall(di, disjuncts(ci)) + removeall(dj, disjuncts(cj)))))
 #                 resoulved = True
 #     if not resoulved:
 #         clauses.append(associate('|', unique(disjuncts(ci) + disjuncts(cj))))
@@ -76,9 +76,10 @@ def pl_resolve(ci, cj):
     
     for literal_i  in disjunction_ci:
         for literal_j  in disjunction_cj:
-            if literal_i == to_cnf(~literal_j) or to_cnf(~literal_i) == literal_j:
+            if literal_i == ~literal_j or ~literal_i == literal_j:
                 remaining = removeall(literal_i, disjunction_ci) + removeall(literal_j, disjunction_cj)
                 remaining = unique(remaining)
                 new_clause = associate(Or, remaining)
                 clauses.append(new_clause)
     return clauses
+
