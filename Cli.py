@@ -14,7 +14,6 @@ def printHelp():
     """
     available commands:
     r: Belief revison
-    d: Calculate degree of belief
     e: Empty belief base
     p: Print belief base
     h: Print help dialog
@@ -30,22 +29,13 @@ def handleInput(beliefBase):
         try:
             formula = to_cnf(formula)
             print (formula)
-            
             order = input("Please enter order (real number from 0 to 1): ")
-            # beliefBase.add(formula, order)
             beliefBase.revise(formula, float(order))
         except SympifyError:
             print("Formula is not valid")
         except ValueError:
             print("Order is not valid")
           
-    elif command == "d":
-        print("Degree of belief")
-        formula = input("Please enter formula: ")
-        
-        formula = to_cnf(formula)
-        ## TODO make belief base class and method
-        ##print(beliefBase.degree(formula))
         
     elif command == "e":
         print("Empty belief base")
@@ -53,7 +43,6 @@ def handleInput(beliefBase):
         
     elif command == "p":
         print("Print belief base")
-        # beliefBase.print()
         print(beliefBase)
         
     elif command == "h":

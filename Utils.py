@@ -2,20 +2,6 @@
 from sympy.logic.boolalg import Or, And
 
 
-# def removeItem(item, seq):
-#     """ Return a copy of seq (or string) with all occurrences of item removed.
-#     """
-#     return [x for x in seq if x != item]
-def removeDuplicates(item,seq):
-    return [x for x in seq if x.formula != item.formula]
-
-# def removeAll(item, seq):
-#     """ Return a copy of seq (or string) with all occurrences of item removed.
-#     """
-#     if isinstance(seq, str):
-#         return seq.replace(item, '')
-#     else:
-#         return [x for x in seq if x != item]
 def removeall(item, seq):
     return [x for x in seq if x != item]
     

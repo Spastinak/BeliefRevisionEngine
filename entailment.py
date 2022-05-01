@@ -56,19 +56,6 @@ def pl_resolution(kb, alpha):
                 clauses.append(c)
             
 
-# def pl_resolve(ci, cj):
-#     """returns the set of all possible clauses obtained by resolving its two inputs."""
-#     clauses = []
-#     resoulved = False 
-#     for di in disjuncts(ci):
-#         for dj in disjuncts(cj):
-#             if di == ~dj or ~di == dj:
-#                 clauses.append(associate('|', unique(removeall(di, disjuncts(ci)) + removeall(dj, disjuncts(cj)))))
-#                 resoulved = True
-#     if not resoulved:
-#         clauses.append(associate('|', unique(disjuncts(ci) + disjuncts(cj))))
-        
-#     return clauses
 def pl_resolve(ci, cj):
     clauses = []
     disjunction_ci = disjuncts(ci)
