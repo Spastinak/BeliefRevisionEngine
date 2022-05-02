@@ -10,7 +10,7 @@ Made by:
 
 ### prerequisites
 
-Before starting the python script you will have to install the required libraries using the following command in you commandline: <br>
+Before starting the python script you will have to install the required libraries using the following command in your commandline: <br>
        ``` $ pip install -r PyLibraries.txt```
 
 
