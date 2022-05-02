@@ -5,7 +5,7 @@ This is a project made for the course **02180 Introduction to Artificial Intelli
 Made by:
 - Stig Bødtker Petersen - s186333
 - Emil Nymark Trangeled - s195478
-- Hans Christian Let-Nissen - s205435
+- Hans Christian Leth-Nissen - s205435
 - Kasper Falch Skov - s205429
 
 ### Prerequisites
