@@ -16,7 +16,7 @@ Before starting the python script you will have to install the required librarie
 
 ### Using the program
 
-To start the program you will have to run the command: <br>
+To start the program you will have to run the command in your commandline: <br>
        ``` $ python cli.py```
 
 To use the different logical operators look in the table below:
