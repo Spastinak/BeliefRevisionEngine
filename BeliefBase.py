@@ -40,7 +40,7 @@ class BeliefBase:
         entrail = pl_resolution(self, formula)
         for formulaToRemove in entrail[1].items():
             for belief in self.beliefs:
-                if belief.formula == formulaToRemove:
+                if belief.formula == formulaToRemove[0]:
                     if belief in self.beliefs and belief.order < order:
                         self.beliefs.remove(belief)
                         contractionResult = True
