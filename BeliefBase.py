@@ -1,10 +1,6 @@
-import math
-from operator import neg
-from sortedcontainers import SortedKeyList, SortedList
-from sympy import to_cnf, Equivalent
+from sortedcontainers import SortedKeyList
+from sympy import to_cnf
 
-import Utils
-from Utils import associate
 
 from entailment import pl_resolution
 
@@ -41,16 +37,10 @@ class BeliefBase:
     def contract(self, formula, order):
         contractionResult = None
         formula = to_cnf(formula)
-        # for belief in self.beliefs:
-        #     if belief.formula == formula:
-        #         self.beliefs.remove(belief)
         entrail = pl_resolution(self, formula)
-        for key, value in entrail[1].items():
-            keyholder = key
-            #for clause in value:
-                # if formula == clause:
+        for formulaToRemove in entrail[1].items():
             for belief in self.beliefs:
-                if belief.formula == keyholder:
+                if belief.formula == formulaToRemove:
                     if belief in self.beliefs and belief.order < order:
                         self.beliefs.remove(belief)
                         contractionResult = True
@@ -79,8 +69,6 @@ class Belief:
     def __init__(self, formula, order=None):
         self.formula = formula
         self.order = order
-
-
 
     def __lt__(self, other):
         return self.order < other.order

@@ -1,6 +1,14 @@
-from sympy import to_cnf
-from sympy.logic.boolalg import Or, And
+"""
+The resolution functions here have been adapted from the
+aima-python code repository, which contains implementations of
+the algorithms in "Artificial Intelligence: A Modern Approach"
+by Stuart Russell and Peter Norvig.
 
+Link:
+https://github.com/aimacode/aima-python
+"""
+from sympy import to_cnf
+from sympy.logic.boolalg import Or
 from Utils import conjuncts, associate, disjuncts, removeall, unique
 
 
