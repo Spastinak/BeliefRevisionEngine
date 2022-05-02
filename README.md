@@ -8,7 +8,7 @@ Made by:
 - Hans Christian Let-Nissen - s205435
 - Kasper Falch Skov - s205429
 
-### prerequisites
+### Prerequisites
 
 Before starting the python script you will have to install the required libraries using the following command below in your commandline: <br>
        ``` $ pip install -r PyLibraries.txt```
