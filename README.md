@@ -30,28 +30,28 @@ To use the different logical operators look in the table below:
 When the script has been run you will be greeted with a menu with a set of options.
 To enter a new belief you can use the command <code>r</code> then an example formula <code>a | b</code> and the order of belief <code>0.5</code><br>
 This can be seen in the example below:
-<code>
-        ####################################    
-            Belief Revision Agent - Group 45    
-        ####################################    
+<pre>
+ ####################################    
+     Belief Revision Agent - Group 45    
+ ####################################    
 
-        ----------------menu----------------    
+ ----------------menu----------------    
 
-                available commands:
+         available commands:
 
-            r:  Belief revison
-            e:  Empty belief base
-            p:  Print belief base
-            h:  Print help dialog
-            q:  Quit
+     r:  Belief revison
+     e:  Empty belief base
+     p:  Print belief base
+     h:  Print help dialog
+     q:  Quit
 
-        ------------------------------------    
+ ------------------------------------    
 
-        Select command: <b>r</b>
-        Revision
+ Select command: <b>r</b>
+ Revision
 
-        Please enter formula: <b>a | b</b>
-        Formula to CNF:  a | b 
+ Please enter formula: <b>a | b</b>
+ Formula to CNF:  a | b 
 
-        Please enter order (real number from 0 to 1): <b>0.5</b>
-</code>
+ Please enter order (real number from 0 to 1): <b>0.5</b>
+</pre>
