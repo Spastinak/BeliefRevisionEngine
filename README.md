@@ -8,16 +8,16 @@ Made by:
 - Hans Christian Let-Nissen - s205435
 - Kasper Falch Skov - s205429
 
-### Prerequsites
+### prerequisites
 
-Before starting the python script you will have to install the required librarises using the following command:
-        $ pip install -r requirements.txt
+Before starting the python script you will have to install the required libraries using the following command: <br>
+       ``` $ pip install -r requirements.txt```
 
 
 ### Using the program
 
-To start the program you will have to run the command:
-        $ python cli.py
+To start the program you will have to run the command: <br>
+       ``` $ python cli.py```
 
 To use the different logical operators look in the table below:
 |  Text | CLI symbol  |
@@ -28,7 +28,7 @@ To use the different logical operators look in the table below:
 | Implication  | >> or << |
 
 When the script has been run you will be greeted with a menu with a set of options.
-To enter a new belief you can us the command <code>r</code> then the formula. ex. <code>a | b</code> and the order of belief <code>0.5</code>
+To enter a new belief you can use the command <code>r</code> then an example formula <code>a | b</code> and the order of belief <code>0.5</code><br>
 This can be seen in the example below:
 
         ####################################    
